@@ -19,30 +19,35 @@ const updateScore = () => {
     score.innerText = `${playerOneScore} to ${playerTwoScore}` 
 }
 
-playerOneBtn.addEventListener("click", function(){
-    if (winner === false){
-    let winGame = playingTo.value;
-    if (playerOneScore === parseInt(winGame)){
-        console.log('you win!!')
-        winner = true;
-        return 
-    }
-    playerOneScore ++;
-    updateScore()
-}
+// fix bug ---> apposing player gets another turn after win
 
+playerOneBtn.addEventListener("click", function(){
+
+    if (winner === true){
+        console.log('Button clicked')
+        return;
+    }else {
+        let winGame = playingTo.value;
+        playerOneScore ++;
+        if (playerOneScore === parseInt(winGame)){
+            console.log('you win')
+            winner = true
+        }
+        updateScore()
+    }
 })
 playerTwoBtn.addEventListener("click", function(){
-    if (winner === false){
+   if (winner === true){
+    return
+   }else {
     let winGame = playingTo.value;
-    if (playerTwoScore === parseInt(winGame)){
-        console.log("you win!!")
-        winner = true;
-        return
-    }
     playerTwoScore ++;
+    if (playerTwoScore === parseInt(winGame)){
+        console.log("you win!")
+        winner = true
+    }
     updateScore()
-}
+   }
 })
 
 resetBtn.addEventListener('click', function(){
